@@ -1,0 +1,24 @@
+{
+  "name": "proyecto-diabetes",
+  "version": "1.0.0",
+  "description": "Proyecto creacion de una pagina web. En la que integrare un modelo probabilistico predictivo. Para que los usuarios de la pagina puedan tener una prediccion con caracteristicas personales",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dacoop06/Diabetes-Page-Project.git"
+  },
+  "keywords": [
+    "[\"diabetes\"",
+    "\"maching-learning\"",
+    "\"web-page\"]"
+  ],
+  "author": "DACOOP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dacoop06/Diabetes-Page-Project/issues"
+  },
+  "homepage": "https://github.com/dacoop06/Diabetes-Page-Project#readme"
+}
