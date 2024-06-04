@@ -1,4 +1,17 @@
+
+if (document.querySelector(".result").innerText == "No deberias poseer Diabetes") {
+    document.querySelector(".result").style.color = "Green";
+}
+if (document.querySelector(".result").innerText == "Puede poseer Diabetes. Visita un medico lo antes posible!!"){
+    document.querySelector(".result").style.color = "Red";
+}
+
 document.addEventListener("DOMContentLoaded", function() {
+    function datos(){
+        let dat =  Math.floor(Math.random() * 2)
+        return dat
+    }
+    
     // Selecciona el botón por su clase
     var myButton = document.querySelector(".button");
 
@@ -24,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(newpat);
         
 
-        const API = 'http://127.0.0.1:8800/predict'
+        const API = 'http://127.0.0.1:2022/predict'
 
         function postData(urlAPI,data){
             const response = fetch(urlAPI, {
@@ -40,14 +53,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
         postData(API,newpat)
             .then(response => response.json())
-            .then(data => console.log(`los datos recolectados son ${data.result}`)) 
             .then(data => {
+                console.log(data)
                 // Muestra el resultado de la predicción en el HTML
-                result = document.querySelector('.result')
-                result.innerText = 'La predicción es: ' + data.result;
+                resultado = document.querySelector('.resultado-prediccion')
+                if (data.result == 1){
+                    resultado.innerText = "Puede poseer Diabetes. Visita un medico lo antes posible!!";
+                    resultado.style.color = "Red"
+                }if (data.result==0){
+
+                    resultado.innerText = "No deberias poseer Diabetes";
+                    resultado.style.color = "Green"
+                }
+                console.log(`Resultado de la prediccion ${data.result}`)
             })
             .catch(error => console.error('Error buscar los datos:', error));
     });
 });
+
+
 
        

@@ -19,6 +19,15 @@
     body {
         margin-top: 64px;
     }
+    .result{
+        display:block;
+        text-align: center;
+        
+    }
+    #result{
+        color:black;
+        font-size:54PX;
+    }
 </style>
 
 <body>
@@ -238,20 +247,21 @@
 
                         <button type="button" class="button">Predict</button>
                         <hr class="mb-3">
-                        <div class="result">Hola</div>
+                        
 
                 </form>
+                <div class="result resultado-prediccion" id="result">.</div>
+                
             </div>
         </div>
     </div>
 </body>
 
 <script>
-    
-    if (document.querySelector(".result").innerText == "No Diabetes") {
+    if (document.querySelector(".result").innerText == "No deberias poseer Diabetes") {
         document.querySelector(".result").style.color = "Green";
     }
-    else {
+    if (document.querySelector(".result").innerText == "Puede poseer Diabetes. Visita un medico lo antes posible!!"){
         document.querySelector(".result").style.color = "Red";
     }
 </script>
