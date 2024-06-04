@@ -127,7 +127,9 @@ from sklearn.svm import SVC # "Support Vector Classifier"
 clfsvm = SVC(kernel='linear') 
 
 # fitting x samples and y classes 
-clfsvm.fit(X_train_SVC,y_train_SVC) 
+clfsvm.fit(X_train_SVC.values,y_train_SVC) 
+
+
 
 y_pred_SVC=clfsvm.predict(X_test_SVC)
 
@@ -158,7 +160,7 @@ table=pd.DataFrame({"Accuracy":[accuracy_DT,accuracy_SVC,accuracy_LR],
                    index=["Decision Tree Classifier","Support Vector Classifier","Logistic Regression"])
 
 
-print("CHECK 7")
+
 ##RANDOM FOREST
 
 from sklearn.ensemble import RandomForestClassifier
@@ -167,7 +169,15 @@ X_train_RF, X_test_RF, y_train_RF, y_test_RF = train_test_split( X, Y, test_size
 
 clf = RandomForestClassifier(n_estimators = 500, random_state = 42)
 
-clf.fit(X_train_RF, y_train_RF);
+clf.fit(X_train_RF.values, y_train_RF);
+
+import pickle
+
+
+pickle.dump(clf,open('model.pkl','wb'))
+
+with open('model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 # use the model to make predictions with the test data
 y_pred_RF = clf.predict(X_test_RF)
@@ -222,51 +232,72 @@ table=pd.DataFrame({"Accuracy":[accuracy_RF,accuracy_DT,accuracy_SVC,accuracy_LR
 table
 
 
-## ALGORITHMO DE VECINOS
-X_train_KNN, X_test_KNN, y_train_KNN, y_test_KNN = train_test_split( X, Y, test_size = 0.3, random_state = 100)
+# ## ALGORITHMO DE VECINOS
+# X_train_KNN, X_test_KNN, y_train_KNN, y_test_KNN = train_test_split( X, Y, test_size = 0.3, random_state = 100)
 
 
-from sklearn.neighbors import KNeighborsClassifier
-classifier = KNeighborsClassifier(n_neighbors=2)
-classifier.fit(X_train_KNN, y_train_KNN)
+# from sklearn.neighbors import KNeighborsClassifier
+# classifier = KNeighborsClassifier(n_neighbors=2)
+# classifier.fit(X_train_KNN, y_train_KNN)
 
-y_pred_knn = classifier.predict(X_test_KNN)
+# y_pred_knn = classifier.predict(X_test_KNN)
 
-from sklearn.metrics import classification_report, confusion_matrix
-print(confusion_matrix(y_test_KNN, y_pred_knn))
-print(classification_report(y_test_KNN, y_pred_knn))
+# from sklearn.metrics import classification_report, confusion_matrix
+# print(confusion_matrix(y_test_KNN, y_pred_knn))
+# print(classification_report(y_test_KNN, y_pred_knn))
 
-final_model_predictions_knn = pd.DataFrame({'Actual':y_test_KNN, 'predictions':y_pred_knn})
+# final_model_predictions_knn = pd.DataFrame({'Actual':y_test_KNN, 'predictions':y_pred_knn})
 
-draw_cm( final_model_predictions_knn.Actual, final_model_predictions_knn.predictions )   # correct 0 is sensitivity and correct is specificity
+# draw_cm( final_model_predictions_knn.Actual, final_model_predictions_knn.predictions )   # correct 0 is sensitivity and correct is specificity
 
-accuracy_knn=metrics.accuracy_score( final_model_predictions_knn.Actual, final_model_predictions_knn.predictions)*100
-accuracy_knn='{:.2f}'.format(accuracy_knn)
-print( 'Total Accuracy : ',accuracy_knn)
-recall_knn=metrics.recall_score(final_model_predictions_knn.Actual, final_model_predictions_knn.predictions )
-print('recall',recall_knn)
-Precision_knn=metrics.precision_score(final_model_predictions_knn.Actual, final_model_predictions_knn.predictions )
-print('Precision',Precision_knn)
+# accuracy_knn=metrics.accuracy_score( final_model_predictions_knn.Actual, final_model_predictions_knn.predictions)*100
+# accuracy_knn='{:.2f}'.format(accuracy_knn)
+# print( 'Total Accuracy : ',accuracy_knn)
+# recall_knn=metrics.recall_score(final_model_predictions_knn.Actual, final_model_predictions_knn.predictions )
+# print('recall',recall_knn)
+# Precision_knn=metrics.precision_score(final_model_predictions_knn.Actual, final_model_predictions_knn.predictions )
+# print('Precision',Precision_knn)
 
-cm2 = metrics.confusion_matrix( final_model_predictions_knn.Actual, final_model_predictions_knn.predictions)
+# cm2 = metrics.confusion_matrix( final_model_predictions_knn.Actual, final_model_predictions_knn.predictions)
 
-sensitivity = cm2[0,0]/(cm2[0,0]+cm2[0,1])
-print('Sensitivity : ', round( sensitivity, 2) )
+# sensitivity = cm2[0,0]/(cm2[0,0]+cm2[0,1])
+# print('Sensitivity : ', round( sensitivity, 2) )
 
-specificity = cm2[1,1]/(cm2[1,0]+cm2[1,1])
-print('Specificity : ', round( specificity, 2 ) )
+# specificity = cm2[1,1]/(cm2[1,0]+cm2[1,1])
+# print('Specificity : ', round( specificity, 2 ) )
 
 
-table=pd.DataFrame({"Accuracy":[accuracy_RF,accuracy_knn,accuracy_DT,accuracy_SVC,accuracy_LR],
-                    "Recall":[recall_RF,recall_knn,recall_DT,recall_SVC,recall_LR],
-                    "Precision ":[precision_RF,Precision_knn,Precision_DT,Precision_SVC,Precision_LR]},
-                   index=["Random Forest","KNN","Decision Tree Classifier","Support Vector Classifier","Logistic Regression"])
+# table=pd.DataFrame({"Accuracy":[accuracy_RF,accuracy_knn,accuracy_DT,accuracy_SVC,accuracy_LR],
+#                     "Recall":[recall_RF,recall_knn,recall_DT,recall_SVC,recall_LR],
+#                     "Precision ":[precision_RF,Precision_knn,Precision_DT,Precision_SVC,Precision_LR]},
+#                    index=["Random Forest","KNN","Decision Tree Classifier","Support Vector Classifier","Logistic Regression"])
 
 
     
-import pickle
+# import pickle
+# import json
+
+# pickle.dump(clf,open('model.pkl','wb'))
+
+# with open('model.pkl', 'rb') as f:
+#     model = pickle.load(f)
 
 
-pickle.dump(clf,open('model.pkl','wb'))
+# def serialize_tree(tree):
+#     tree_ = tree.tree_
+#     return {
+#         'nodes': tree_.node_count,
+#         'children_left': tree_.children_left.tolist(),
+#         'children_right': tree_.children_right.tolist(),
+#         'feature': tree_.feature.tolist(),
+#         'threshold': tree_.threshold.tolist(),
+#         'value': tree_.value.tolist(),
+#     }
 
-clf=pickle.load(open('model.pkl','rb'))
+# model_params = {
+#     'n_estimators': model.n_estimators,
+#     'estimators': [serialize_tree(estimator) for estimator in model.estimators_]
+# }
+
+# with open('model.json', 'w') as f:
+#     json.dump(model_params, f)

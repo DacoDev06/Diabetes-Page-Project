@@ -9,7 +9,8 @@
 }
 
 .result{
-    display: none;
+    display: block;
+    color: black;
 }
 .button{
     font-size: 20px;

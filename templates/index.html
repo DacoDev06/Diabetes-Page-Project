@@ -238,9 +238,8 @@
 
                         <button type="button" class="button">Predict</button>
                         <hr class="mb-3">
-                        <strong>
-                            <h2 class="result" style="text-align: center;">{{ value }}</h2>
-                        </strong>
+                        <div class="result">Hola</div>
+
                 </form>
             </div>
         </div>
@@ -248,6 +247,7 @@
 </body>
 
 <script>
+    
     if (document.querySelector(".result").innerText == "No Diabetes") {
         document.querySelector(".result").style.color = "Green";
     }
