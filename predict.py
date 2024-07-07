@@ -1,7 +1,7 @@
 import pickle
 from fastapi.responses import JSONResponse
 
-clf=pickle.load(open('model.pkl','rb'))
+clf=pickle.load(open('./static/model.pkl','rb'))
 
 def predict(list):
     result = clf.predict([list])
